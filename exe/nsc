@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'gli'
+require "nexpose-security-console"
 
 include GLI::App
 

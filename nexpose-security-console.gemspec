@@ -45,8 +45,7 @@ Gem::Specification.new do |spec|
   spec.has_rdoc = true
   spec.extra_rdoc_files = ['README.rdoc','nexpose-security-console.rdoc']
   spec.rdoc_options << '--title' << 'nexpose-security-console' << '--main' << 'README.rdoc' << '-ri'
-  spec.bindir = 'bin'
-  spec.executables << 'nexpose-security-console'
+
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rdoc'
