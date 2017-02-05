@@ -1,0 +1,5 @@
+= nexpose-security-console
+
+Generate this with
+    nexpose-security-console rdoc
+After you have described your command line interface
