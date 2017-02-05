@@ -1,9 +1,12 @@
-require 'test/unit'
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'simplecov'
+SimpleCov.start
 
-# Add test libraries you want to use here, e.g. mocha
+require 'nexpose-security-console'
+require 'minitest/autorun'
+require 'minitest/spec'
+require 'minitest/autorun'
+require 'minitest/reporters'
 
-class Test::Unit::TestCase
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-  # Add global extensions to the test case class here
-  
-end
