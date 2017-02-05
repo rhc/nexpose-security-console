@@ -1,9 +1,12 @@
+require 'bundler/gem_tasks'
+require 'rake/testtask'
 require 'rake/clean'
 require 'rubygems'
 require 'rubygems/package_task'
 require 'rdoc/task'
 require 'cucumber'
 require 'cucumber/rake/task'
+
 
 Rake::RDocTask.new do |rd|
   rd.main = "README.rdoc"
@@ -42,6 +45,7 @@ require 'rake/testtask'
 Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList['test/*_test.rb']
+  t.warning = false
 end
 
 task :default => [:test,:features]
