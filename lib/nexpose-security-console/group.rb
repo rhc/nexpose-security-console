@@ -2,7 +2,6 @@ module NexposeSecurityConsole
   module Group
     include NexposeSecurityConsole
 
-
     def self.list
       begin
         puts "Login"
