@@ -8,3 +8,4 @@ bundle install
 # Do any other automated setup that you need to do here
 bundle exec guard init minitest
 bundle exec guard init bundler
+bundle exec guard init cucumber

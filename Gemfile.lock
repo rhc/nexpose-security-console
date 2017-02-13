@@ -58,6 +58,10 @@ GEM
       guard (~> 2.2)
       guard-compat (~> 1.1)
     guard-compat (1.2.1)
+    guard-cucumber (2.1.2)
+      cucumber (~> 2.0)
+      guard-compat (~> 1.0)
+      nenv (~> 0.1)
     guard-minitest (2.4.6)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
@@ -131,6 +135,7 @@ DEPENDENCIES
   gem-release (~> 0)
   guard
   guard-bundler
+  guard-cucumber
   guard-minitest
   minitest (~> 5.0)
   minitest-reporters

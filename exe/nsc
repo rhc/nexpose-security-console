@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
 require 'gli'
 require "nexpose-security-console"
+require 'progress_bar'
 
 include GLI::App
+include NexposeSecurityConsole
 
 program_desc 'CLI to interface with Nexpose Security Console'
 version NexposeSecurityConsole::VERSION
@@ -37,18 +39,58 @@ command :sites do |c|
   end
 end
 
+desc 'Verify connection to the server'
+command [:connect, :login] do |c|
+  c.flag [:u, :username], arg_name: 'USERNAME', default_value: ENV['NEXPOSE_USER']
+  c.flag [:p, :password], arg_name: 'PASSWORD', default_value: ENV['NEXPOSE_PASSWORD']  
+  c.flag [:s, :server], arg_name: 'SERVER', default_value: ENV['NEXPOSE_HOST']
+  c.flag [:port], arg_name: 'PORT', default_value: 3780, type: Integer
+
+  c.action do |global_options,options,args|
+    username = options[:username] 
+    password = options[:password]
+    server = options[:server]
+    port = options[:port]
+
+    nsc = NexposeSecurityConsole.connection
+    puts "Success" if nsc.login
+    nsc.logout
+  end
+end
+
+
 desc 'Manage asset groups'
 command :groups do |c|
   c.desc 'List asset groups'
-  c.command :list do |ls|
-    ls.action do |global_options,options,args|
+  c.command :list do |list|
+    list.action do |global_options,options,args|
       puts "list asset groups"
     end
   end
   c.default_command :list
-
-
 end
+
+desc 'Bulk delete assets with unknown OS' 
+command :bulk_delete do |c|
+  c.action do |global_options, options, args|
+    nsc = NexposeSecurityConsole.login
+    nsc.login
+    puts 'Retrieving all assets with unknown OS'
+    puts 'This may take a while ...'
+    assets = nsc.filter(Nexpose::Search::Field::OS, Nexpose::Search::Operator::IS_EMPTY, '')
+    total = assets.count
+    bar = ProgressBar.new(total, :counter, :percentage, :eta)
+    assets.each_with_index do |device , index|
+      id = device["asset_id"].to_i
+      nsc.delete_device(id)
+      bar.increment!
+    end
+
+    nsc.logout
+  end
+end
+
+
 
 desc 'Manage assets'
 arg_name 'Describe arguments to assets here'
