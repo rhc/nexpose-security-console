@@ -4,6 +4,7 @@ require "nexpose-security-console"
 require 'progress_bar'
 require 'csv'
 
+
 include GLI::App
 include NexposeSecurityConsole
 
@@ -65,27 +66,34 @@ command :bulk_delete do |c|
     puts 'Retrieving all assets with unknown OS'
     puts 'This may take a while. Be patient ...'
 
-    group_name = 'Unknown OS'
-    query = %Q(
-      select asset_id from dim_asset_group_asset  daga
-      join dim_asset_group dag using(asset_group_id)
-      where dag.name = '#{group_name}'
-    )
-
-    puts query
-    # assets = nsc.filter(Nexpose::Search::Field::OS, Nexpose::Search::Operator::IS_EMPTY, '')
-    puts "Create the report"
-    report_config = Nexpose::AdhocReportConfig.new(nil, 'sql')
-    report_config.add_filter('version', '2.2.0')
-    report_config.add_filter('query', query)
-    report_output = report_config.generate(nsc)
-
-    devices = CSV.parse(report_output.chomp, { :headers => :first_row })
-    puts total = devices.count
+    # group_name = 'Unknown OS'
+    # query = %Q(
+    #   select asset_id from dim_asset_group_asset  daga
+    #   join dim_asset_group dag using(asset_group_id)
+    #   where dag.name = '#{group_name}'
+    # )
+    #
+    # puts query
+    # # assets = nsc.filter(Nexpose::Search::Field::OS, Nexpose::Search::Operator::IS_EMPTY, '')
+    # puts "Create the report"
+    # report_config = Nexpose::AdhocReportConfig.new(nil, 'sql')
+    # report_config.add_filter('version', '2.2.0')
+    # report_config.add_filter('query', query)
+    # report_output = report_config.generate(nsc)
+    #
+    # devices = CSV.parse(report_output.chomp, { :headers => :first_row })
+    # puts total = devices.count
+    # bar = ProgressBar.new(total, :counter, :percentage, :eta)
+    # devices.each_with_index do |device , index|
+    #   id = device["asset_id"].to_i
+    #   nsc.delete_device(id)
+    #   bar.increment!
+    dag = nsc.asset_groups.find {|group| group.name == 'Unknown OS' }
+    group = Nexpose::AssetGroup.load(nsc, dag.id)  
+    total = group.assets.count
     bar = ProgressBar.new(total, :counter, :percentage, :eta)
-    devices.each_with_index do |device , index|
-      id = device["asset_id"].to_i
-      nsc.delete_device(id)
+    group.assets.each_with_index do |a,i| 
+      nsc.delete_asset(a.id)      
       bar.increment!
     end
 

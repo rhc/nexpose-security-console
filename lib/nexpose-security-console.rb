@@ -1,6 +1,7 @@
 require 'nexpose-security-console/version.rb'
 require 'nexpose'
 require 'dotenv'
+require 'byebug'
 
 # Add requires for other files you add to your project here, so
 # you just need to require this one file in your bin file

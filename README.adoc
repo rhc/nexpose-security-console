@@ -2,21 +2,20 @@
 Christian Kyony <ckyony@changamuka.com>
 v0.0.1, 3 February 2017
 
-
 For security engineers
 who needs to interact with a Rapid7 Nexpose console,
 the *nexpose-security-console* gem is a Git like command line utility
-that provides the ability to:
+that manage (e.g. create, list, update, and remove) the following entities:
+  - sites,
+  - scans,
+  - assets,
+  - asset groups,
+  - reports,
+  - vulnerabilities
+  - etc...
 
-- create a new site,
-- add an IP to the site,
-- perform a scan against the site usinsc a defined/passed scan template,
-- produce a reports for vulnerabilitie0s, installed software, and policy compliance.
-- to delete in bulk more than 1000 assets in a given site
-- etc
-
-Unlike the Nexposecli gem and other alternatives,
-*nexpose-security-consolei* is designed as command suite a la GIT.
+// Unlike the Nexposecli gem and other alternatives,
+// *nexpose-security-consolei* is designed to follow a
 
 
 == Personal scratch
@@ -26,9 +25,12 @@ The web GUI only allows to delete 500 at a time.
 Hence, nexpose-security-console was born.
 
 
+
 == Installation
 
-=== From Rubygems
+=== From Ruby Gems
+
+Simply run the command below
 
 ----
 $ gem install nexpose-security-console
@@ -67,43 +69,44 @@ You can get help on available commands.
     nsc help [COMMAND]  # Describe available commands or one specific command
 
 
-List all active scans
 
-  nsc scan list
-
-Run an adhoc sql query and export via csv
-
-  nsc reports --config ./lab.yaml --sql "select * from dim_asset"
-
-or for more complex sql queries, put the sql into a file and run
-
-  nsc reports --config ./lab.yaml --sqlfile ./new_assets.sql
-
-
-List all reports defined
-
-  nsc reports
-
-Request the console's version details
-
-  nsc console --COMMAND "ver"
-
-Run an adhoc scan for a single ip or network cidr-noted range ( --id )
-
-  nsc scans create --range 192.168.42.103/32
-
-how to add a new custom role for configuration within the console ui, based on a copy of existinsc role
-
-  nsc roles -n security-manager --description "New Role Name" --newname new-short-name
-
-how to add a new user, with default password of "nxpassword" until moved to yaml config is supported
-
-  nsc users create  --name <username> --fullname "Full Name"
-
-how to export packaged scan data in a single zip file
-
-  nsc scan  --update --scanpath ./ --action export --id <scan id>
-
+// List all active scans
+//
+//   nsc scan list
+//
+// Run an adhoc sql query and export via csv
+//
+//   nsc reports --sql "select * from dim_asset"
+//
+// or for more complex sql queries, put the sql into a file and run
+//
+//   nsc reports --sqlfile ./new_assets.sql
+//
+//
+// List all reports defined
+//
+//   nsc reports
+//
+// Request the console's version details
+//
+//   nsc console commands "ver"
+//
+// Run an adhoc scan for a single ip or network cidr-noted range ( --id )
+//
+//   nsc scans create --range 192.168.42.103/32
+//
+// how to add a new custom role for configuration within the console ui, based on a copy of existinsc role
+//
+//   nsc roles -n security-manager --description "New Role Name" --newname new-short-name
+//
+// how to add a new user, with default password of "nxpassword" until moved to yaml config is supported
+//
+//   nsc users create  --name <username> --fullname "Full Name"
+//
+// how to export packaged scan data in a single zip file
+//
+//   nsc scan  --update --scanpath ./ --action export --id <scan id>
+//
 
 == Configuration
 
@@ -116,6 +119,37 @@ config:
    user: nxuser
    password: password
 ----
+
+
+== Development
+
+Checkout the github repository
+
+  git clone https://github.com/rhc/nexpose-security-console
+
+Install dependencies
+
+  bin/setup
+
+Run the tests
+
+  rake test
+
+Experiment with the code under development
+
+  run bin/console
+
+Install this gem onto your local machine
+
+  bundle exec rake install
+
+Release a new version
+
+  gem bump
+  gem release
+
+
+
 
 == License
 
