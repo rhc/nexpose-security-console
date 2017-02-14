@@ -1,6 +1,0 @@
-= nexpose-security-console
-
-Describe your project here
-
-:include:nexpose-security-console.rdoc
-
