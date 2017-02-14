@@ -28,35 +28,12 @@ Hence, nexpose-security-console was born.
 
 == Installation
 
-=== From Ruby Gems
-
 Simply run the command below
 
 ----
 $ gem install nexpose-security-console
 ----
 
-=== From source code
-
-- If you have access to the Internet, obtain the source code from Github repository.
-
-  $ git clone https://github.com/rhc/nexpose-security-console.git
-
-- Access the source code folder directory.
-
-  $ cd nexpose-security-console
-
-- Install the dependencies
-
-  $ bin/setup
-
-- Install the gem in your local machine
-
-  $ bundle exec rake install
-
-- Run the test suite
-
-  $ rake test
 
 == Usage
 
@@ -123,32 +100,34 @@ config:
 
 == Development
 
-Checkout the github repository
+- Checkout the github repository
 
   git clone https://github.com/rhc/nexpose-security-console
 
-Install dependencies
+- Access the source code folder directory.
+
+  $ cd nexpose-security-console
+
+- Install dependencies
 
   bin/setup
 
-Run the tests
+- Run the tests
 
   rake test
 
-Experiment with the code under development
+- Experiment with the code under development
 
   run bin/console
 
-Install this gem onto your local machine
+- Install this gem onto your local machine
 
   bundle exec rake install
 
-Release a new version
+- Release a new version
 
   gem bump
   gem release
-
-
 
 
 == License
