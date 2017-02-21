@@ -128,23 +128,23 @@ Access the source code folder directory.
 
   $ cd nexpose-security-console
 
-- Install dependencies
+Install dependencies
 
   bin/setup
 
-- Run the tests
+Run the tests
 
   rake test
 
-- Experiment with the code under development
+Experiment with the code under development
 
   run bin/console
 
-- Install this gem onto your local machine
+Install this gem onto your local machine
 
   bundle exec rake install
 
-- Release a new version
+Release a new version
 
   gem bump
   gem release
