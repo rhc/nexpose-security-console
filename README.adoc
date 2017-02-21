@@ -120,11 +120,11 @@ config:
 
 == Development
 
-- Checkout the github repository
+Checkout the github repository
 
   git clone https://github.com/rhc/nexpose-security-console
 
-- Access the source code folder directory.
+Access the source code folder directory.
 
   $ cd nexpose-security-console
 
